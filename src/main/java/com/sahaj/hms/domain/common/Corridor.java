@@ -1,4 +1,4 @@
-package com.sahaj.hms.domain;
+package com.sahaj.hms.domain.common;
 
 import com.sahaj.hms.domain.enums.CorridorType;
 

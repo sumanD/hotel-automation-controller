@@ -1,5 +1,8 @@
-package com.sahaj.hms.domain;
+package com.sahaj.hms.domain.sr;
 
+import com.sahaj.hms.common.Builder;
+import com.sahaj.hms.domain.common.Corridor;
+import com.sahaj.hms.domain.common.Floor;
 import com.sahaj.hms.domain.enums.MovementStatus;
 
 public class SensorInputRequest {
@@ -15,7 +18,8 @@ public class SensorInputRequest {
         this.corridor = corridor;
     }
 
-    public static class SensorInputRequestBuilder {
+    // Builder to generate a Sensor Input Request
+    public static class SensorInputRequestBuilder implements Builder<SensorInputRequest>{
         private MovementStatus movementStatus;
         private Floor floorNumber;
         private Corridor corridor;
@@ -28,7 +32,8 @@ public class SensorInputRequest {
             this.corridor = corridor;
         }
 
-        public SensorInputRequest constructSensorInputRequest() {
+        @Override
+        public SensorInputRequest construct() {
             return new SensorInputRequest(movementStatus,floorNumber,corridor);
         }
     }
@@ -37,23 +42,11 @@ public class SensorInputRequest {
         return movementStatus;
     }
 
-    public void setMovementStatus(MovementStatus movementStatus) {
-        this.movementStatus = movementStatus;
-    }
-
     public Floor getFloorNumber() {
         return floorNumber;
     }
 
-    public void setFloorNumber(Floor floorNumber) {
-        this.floorNumber = floorNumber;
-    }
-
     public Corridor getCorridor() {
         return corridor;
-    }
-
-    public void setCorridor(Corridor corridor) {
-        this.corridor = corridor;
     }
 }

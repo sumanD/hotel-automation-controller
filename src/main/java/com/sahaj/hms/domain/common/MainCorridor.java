@@ -43,7 +43,7 @@ public class MainCorridor extends Corridor {
                     = new PowerConsumption
                     .PowerConsumptionBuilder(DEFAULT_MAIN_CORRIDOR_LIGHT_POWER_CONSUMPTION_UNIT, SystemOfMeasurement.UNIT)
                     .construct();
-            this.light = new Light.LightBuilder(EquipmentState.ON, lightPowerConsumption).constructLight();
+            this.light = new Light.LightBuilder(EquipmentState.ON, lightPowerConsumption).construct();
 
             // Initializing Air Conditioner for the Main Corridor
             PowerConsumption acPowerConsumption

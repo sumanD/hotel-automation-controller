@@ -13,10 +13,7 @@ import java.time.LocalTime;
  */
 
 public class DayTimeSlot extends TimeSlot {
-    private static final LocalTime startTime = LocalTime.of(6, 0);
-    private static final LocalTime endTime = LocalTime.of(18, 0);
-
-    public DayTimeSlot() {
-        super(startTime, endTime, TimeSlotType.DAY_TIME_SLOT);
-    }
+    private LocalTime startTime = LocalTime.of(6, 0);
+    private LocalTime endTime = LocalTime.of(18, 0);
+    private TimeSlotType timeSlotType = TimeSlotType.DAY_TIME_SLOT;
 }

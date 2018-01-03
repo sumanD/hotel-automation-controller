@@ -2,6 +2,8 @@ package com.sahaj.hms.domain.rule;
 
 
 import com.sahaj.hms.common.Builder;
+import com.sahaj.hms.common.Factory;
+import com.sahaj.hms.common.TimeSlotFactory;
 import com.sahaj.hms.domain.ts.DayTimeSlot;
 import com.sahaj.hms.domain.ts.NightTimeSlot;
 import com.sahaj.hms.domain.ts.TimeSlot;
@@ -14,6 +16,9 @@ import com.sahaj.hms.domain.enums.TimeSlotType;
  * Light Management Rule fo Main Corridor
  */
 public class MainCorridorLightManagementRule {
+
+    private final static Factory<TimeSlot,TimeSlotType> timeSlotFactory = new TimeSlotFactory();
+
     private EquipmentStateManagementRule equipmentStateManagementRule;
 
     private MainCorridorLightManagementRule(EquipmentStateManagementRule equipmentStateManagementRule) {
@@ -34,13 +39,7 @@ public class MainCorridorLightManagementRule {
                                                       final TimeSlotType timeSlotType,
                                                       final MovementStatus movementStatus) {
 
-            TimeSlot timeSlot = new DayTimeSlot();
-
-            if (timeSlotType == TimeSlotType.DAY_TIME_SLOT) {
-                timeSlot = new DayTimeSlot();
-            } else if (timeSlotType == TimeSlotType.NIGHT_TIME_SLOT) {
-                timeSlot = new NightTimeSlot();
-            }
+            TimeSlot timeSlot = timeSlotFactory.getObject(timeSlotType);
             this.equipmentStateManagementRule = new EquipmentStateManagementRule
                     .EquipmentStateManagementRuleBuilder(EquipmentType.LIGHT, equipmentState, timeSlot, movementStatus).construct();
         }

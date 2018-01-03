@@ -11,10 +11,4 @@ public abstract class TimeSlot {
     private LocalTime startTime;
     private LocalTime endTime;
     private TimeSlotType timeSlotType;
-
-    public TimeSlot(LocalTime startTime, LocalTime endTime, TimeSlotType timeSlotType) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.timeSlotType = timeSlotType;
-    }
 }

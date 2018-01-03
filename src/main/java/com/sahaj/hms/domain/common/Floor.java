@@ -1,5 +1,8 @@
 package com.sahaj.hms.domain.common;
 
+import com.sahaj.hms.common.Builder;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,4 +15,43 @@ import java.util.List;
 public class Floor {
     private List<MainCorridor> mainCorridors;
     private List<SubCorridor> subCorridors;
+
+    private Floor(List<MainCorridor> mainCorridors, List<SubCorridor> subCorridors) {
+        this.mainCorridors = mainCorridors;
+        this.subCorridors = subCorridors;
+    }
+
+    public List<MainCorridor> getMainCorridors() {
+        return mainCorridors;
+    }
+
+    public List<SubCorridor> getSubCorridors() {
+        return subCorridors;
+    }
+
+    public static class FloorBuilder implements Builder<Floor> {
+        private List<MainCorridor> mainCorridors;
+        private List<SubCorridor> subCorridors;
+
+        public FloorBuilder(Integer numberOfMainCorridor, Integer numberOfSubCorridors) {
+            mainCorridors = new ArrayList<>(numberOfMainCorridor);
+
+            for (Integer i = 0; i < numberOfMainCorridor; i++) {
+                MainCorridor mainCorridor = new MainCorridor.MainCorridorBuilder(i).construct();
+                mainCorridors.add(mainCorridor);
+            }
+
+            subCorridors = new ArrayList<>(numberOfSubCorridors);
+            for (Integer i = 0; i < numberOfSubCorridors; i++) {
+                SubCorridor subCorridor = new SubCorridor.SubCorridorBuilder(i).construct();
+                subCorridors.add(subCorridor);
+            }
+        }
+
+        @Override
+        public Floor construct() {
+            return new Floor(this.mainCorridors, this.subCorridors);
+        }
+
+    }
 }

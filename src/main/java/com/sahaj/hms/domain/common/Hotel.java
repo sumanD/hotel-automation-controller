@@ -9,4 +9,19 @@ package com.sahaj.hms.domain.common;
 
 public class Hotel {
     private Floors floors;
+
+    public Hotel(Floors floors) {
+        this.floors = floors;
+    }
+
+    public Floors getFloors() {
+        return floors;
+    }
+
+    /**
+     * Prints equipment Status of a Hotel
+     */
+    public void printState() {
+        floors.printState();
+    }
 }

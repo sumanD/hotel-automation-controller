@@ -21,7 +21,7 @@ public class SubCorridor extends Corridor {
         this.airConditioner = airConditioner;
     }
 
-    public static class SubCorridorBuilder implements Builder<SubCorridor>{
+    public static class SubCorridorBuilder implements Builder<SubCorridor> {
         private Integer corridorId;
         private Light light;
         private AirConditioner airConditioner;
@@ -34,7 +34,7 @@ public class SubCorridor extends Corridor {
                     = new PowerConsumption
                     .PowerConsumptionBuilder(DEFAULT_SUB_CORRIDOR_LIGHT_POWER_CONSUMPTION_UNIT, SystemOfMeasurement.UNIT)
                     .construct();
-            this.light = new Light.LightBuilder(EquipmentState.ON,powerConsumption).construct();
+            this.light = new Light.LightBuilder(EquipmentState.ON, powerConsumption).construct();
 
             // Initializing Air Conditioner for the Sub Corridor
             PowerConsumption acPowerConsumption
@@ -48,8 +48,16 @@ public class SubCorridor extends Corridor {
 
         @Override
         public SubCorridor construct() {
-            return new SubCorridor(this.corridorId,this.light, this.airConditioner);
+            return new SubCorridor(this.corridorId, this.light, this.airConditioner);
         }
+    }
+
+    public Light getLight() {
+        return light;
+    }
+
+    public AirConditioner getAirConditioner() {
+        return airConditioner;
     }
 }
 

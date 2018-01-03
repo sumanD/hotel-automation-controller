@@ -16,4 +16,16 @@ public abstract class Equipment {
         this.powerConsumption = powerConsumption;
         this.equipmentType = equipmentType;
     }
+
+    public EquipmentState getEquipmentState() {
+        return equipmentState;
+    }
+
+    public PowerConsumption getPowerConsumption() {
+        return powerConsumption;
+    }
+
+    public EquipmentType getEquipmentType() {
+        return equipmentType;
+    }
 }

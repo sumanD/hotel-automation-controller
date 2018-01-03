@@ -59,4 +59,22 @@ public class MainCorridor extends Corridor {
             return new MainCorridor(this.corridorId, this.light, this.airConditioner);
         }
     }
+
+    public Light getLight() {
+        return light;
+    }
+
+    public AirConditioner getAirConditioner() {
+        return airConditioner;
+    }
+
+    @Override
+    public String toString() {
+        return "MainCorridor{" +
+                "light=" + light +
+                ", airConditioner=" + airConditioner +
+                ", corridorId=" + corridorId +
+                ", corridorType=" + corridorType +
+                '}';
+    }
 }

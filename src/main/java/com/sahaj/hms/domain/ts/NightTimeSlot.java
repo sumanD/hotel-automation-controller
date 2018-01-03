@@ -14,8 +14,5 @@ import java.time.LocalTime;
 public class NightTimeSlot extends TimeSlot {
     private static final LocalTime startTime = LocalTime.of(18, 0);
     private static final LocalTime endTime = LocalTime.of(6, 0);
-
-    public NightTimeSlot() {
-        super(startTime, endTime, TimeSlotType.NIGHT_TIME_SLOT);
-    }
+    private TimeSlotType timeSlotType = TimeSlotType.NIGHT_TIME_SLOT;
 }

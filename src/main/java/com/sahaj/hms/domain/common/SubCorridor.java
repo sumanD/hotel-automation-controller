@@ -34,7 +34,7 @@ public class SubCorridor extends Corridor {
                     = new PowerConsumption
                     .PowerConsumptionBuilder(DEFAULT_SUB_CORRIDOR_LIGHT_POWER_CONSUMPTION_UNIT, SystemOfMeasurement.UNIT)
                     .construct();
-            this.light = new Light.LightBuilder(EquipmentState.ON, powerConsumption).construct();
+            this.light = new Light.LightBuilder(EquipmentState.OFF, powerConsumption).construct();
 
             // Initializing Air Conditioner for the Sub Corridor
             PowerConsumption acPowerConsumption

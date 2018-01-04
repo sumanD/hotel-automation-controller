@@ -4,8 +4,6 @@ package com.sahaj.hms.domain.rule;
 import com.sahaj.hms.common.Builder;
 import com.sahaj.hms.common.Factory;
 import com.sahaj.hms.common.TimeSlotFactory;
-import com.sahaj.hms.domain.ts.DayTimeSlot;
-import com.sahaj.hms.domain.ts.NightTimeSlot;
 import com.sahaj.hms.domain.ts.TimeSlot;
 import com.sahaj.hms.domain.enums.EquipmentState;
 import com.sahaj.hms.domain.enums.EquipmentType;

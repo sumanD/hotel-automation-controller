@@ -17,6 +17,8 @@ public class HmsApplication implements CommandLineRunner {
         SpringApplication app = new SpringApplication(HmsApplication.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
+
+        String a = "a";
     }
 
     @Override

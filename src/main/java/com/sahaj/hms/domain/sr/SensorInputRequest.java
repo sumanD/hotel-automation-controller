@@ -3,38 +3,39 @@ package com.sahaj.hms.domain.sr;
 import com.sahaj.hms.common.Builder;
 import com.sahaj.hms.domain.common.Corridor;
 import com.sahaj.hms.domain.common.Floor;
+import com.sahaj.hms.domain.common.SubCorridor;
 import com.sahaj.hms.domain.enums.MovementStatus;
 
 public class SensorInputRequest {
     private MovementStatus movementStatus;
-    private Floor floorNumber;
-    private Corridor corridor;
+    private Floor onWhichFloor;
+    private SubCorridor onWhichSubCorridor;
 
     private SensorInputRequest(final MovementStatus movementStatus,
                                final Floor floorNumber,
-                               final Corridor corridor) {
+                               final SubCorridor subCorridor) {
         this.movementStatus = movementStatus;
-        this.floorNumber = floorNumber;
-        this.corridor = corridor;
+        this.onWhichFloor = floorNumber;
+        this.onWhichSubCorridor = subCorridor;
     }
 
     // Builder to generate a Sensor Input Request
     public static class SensorInputRequestBuilder implements Builder<SensorInputRequest>{
         private MovementStatus movementStatus;
-        private Floor floorNumber;
-        private Corridor corridor;
+        private Floor onWhichFloor;
+        private SubCorridor onWhichSubCorridor;
 
         public SensorInputRequestBuilder(final MovementStatus movementStatus,
-                                  final Floor floorNumber,
-                                  final Corridor corridor) {
+                                  final Floor onWhichFloor,
+                                  final SubCorridor onWhichSubCorridor) {
             this.movementStatus = movementStatus;
-            this.floorNumber = floorNumber;
-            this.corridor = corridor;
+            this.onWhichFloor = onWhichFloor;
+            this.onWhichSubCorridor = onWhichSubCorridor;
         }
 
         @Override
         public SensorInputRequest construct() {
-            return new SensorInputRequest(movementStatus,floorNumber,corridor);
+            return new SensorInputRequest(movementStatus,onWhichFloor,onWhichSubCorridor);
         }
     }
 
@@ -43,10 +44,10 @@ public class SensorInputRequest {
     }
 
     public Floor getFloorNumber() {
-        return floorNumber;
+        return onWhichFloor;
     }
 
     public Corridor getCorridor() {
-        return corridor;
+        return onWhichSubCorridor;
     }
 }

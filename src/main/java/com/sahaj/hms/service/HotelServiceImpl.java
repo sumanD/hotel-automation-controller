@@ -3,7 +3,6 @@ package com.sahaj.hms.service;
 import com.sahaj.hms.common.HotelFactory;
 import com.sahaj.hms.domain.common.Hotel;
 import com.sahaj.hms.domain.sr.HotelInitializationRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

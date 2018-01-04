@@ -5,5 +5,5 @@ package com.sahaj.hms.domain.enums;
  */
 public enum EquipmentType {
     LIGHT,
-    AIR_CONDITIONER;
+    AIR_CONDITIONER
 }

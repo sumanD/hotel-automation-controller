@@ -1,7 +1,8 @@
-package com.sahaj.hms.service;
+package com.sahaj.hms.service.impl;
 
 
 import com.sahaj.hms.repository.MainCorridorESMRuleRepository;
+import com.sahaj.hms.service.EquipmentStateManagementRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -30,4 +30,25 @@ public class Light extends Equipment {
             return new Light(this.equipmentState, this.powerConsumption);
         }
     }
+
+    public void switchOn() {
+        this.equipmentState = EquipmentState.ON;
+    }
+
+    public void switchOff(){
+        this.equipmentState = EquipmentState.OFF;
+    }
+
+    /**
+     * This method returns the power consumed by Light at a particular moment
+     * @return Power consumed
+     */
+    public Integer getConsumedPower() {
+        if (this.equipmentState == EquipmentState.ON) {
+            return this.powerConsumption.getUnitValue();
+        }
+        else {
+            return 0;
+        }
+    }
 }

@@ -1,6 +1,9 @@
 package com.sahaj.hms.service;
 
 
+import com.sahaj.hms.exception.IncorrectSensorInputException;
+import com.sahaj.hms.service.impl.HotelServiceImpl;
+
 /**
  * Starting point of the Program Execution.
  * <p>
@@ -10,5 +13,5 @@ package com.sahaj.hms.service;
 
 
 public interface EquipmentController {
-    public void control();
+    public void control() throws IncorrectSensorInputException;
 }

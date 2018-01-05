@@ -68,6 +68,10 @@ public class MainCorridor extends Corridor {
         return airConditioner;
     }
 
+    public Integer getTotalPowerConsumption() {
+        return light.getConsumedPower() + airConditioner.getConsumedPower();
+    }
+
     @Override
     public String toString() {
         return "MainCorridor{" +

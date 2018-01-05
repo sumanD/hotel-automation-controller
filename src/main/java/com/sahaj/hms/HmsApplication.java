@@ -1,6 +1,6 @@
 package com.sahaj.hms;
 
-import com.sahaj.hms.service.EquipmentControllerImpl;
+import com.sahaj.hms.service.impl.EquipmentControllerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
@@ -17,8 +17,6 @@ public class HmsApplication implements CommandLineRunner {
         SpringApplication app = new SpringApplication(HmsApplication.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
-
-        String a = "a";
     }
 
     @Override

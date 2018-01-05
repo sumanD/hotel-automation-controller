@@ -21,11 +21,11 @@ public abstract class Equipment {
         return equipmentState;
     }
 
-    public PowerConsumption getPowerConsumption() {
+    protected PowerConsumption getPowerConsumption() {
         return powerConsumption;
     }
 
-    public EquipmentType getEquipmentType() {
+    protected EquipmentType getEquipmentType() {
         return equipmentType;
     }
 }

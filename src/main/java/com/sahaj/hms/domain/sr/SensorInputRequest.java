@@ -8,12 +8,12 @@ import com.sahaj.hms.domain.enums.MovementStatus;
 
 public class SensorInputRequest {
     private MovementStatus movementStatus;
-    private Floor onWhichFloor;
-    private SubCorridor onWhichSubCorridor;
+    private Integer onWhichFloor;
+    private Integer onWhichSubCorridor;
 
     private SensorInputRequest(final MovementStatus movementStatus,
-                               final Floor floorNumber,
-                               final SubCorridor subCorridor) {
+                               final Integer floorNumber,
+                               final Integer subCorridor) {
         this.movementStatus = movementStatus;
         this.onWhichFloor = floorNumber;
         this.onWhichSubCorridor = subCorridor;
@@ -22,12 +22,12 @@ public class SensorInputRequest {
     // Builder to generate a Sensor Input Request
     public static class SensorInputRequestBuilder implements Builder<SensorInputRequest>{
         private MovementStatus movementStatus;
-        private Floor onWhichFloor;
-        private SubCorridor onWhichSubCorridor;
+        private Integer onWhichFloor;
+        private Integer onWhichSubCorridor;
 
         public SensorInputRequestBuilder(final MovementStatus movementStatus,
-                                  final Floor onWhichFloor,
-                                  final SubCorridor onWhichSubCorridor) {
+                                  final Integer onWhichFloor,
+                                  final Integer onWhichSubCorridor) {
             this.movementStatus = movementStatus;
             this.onWhichFloor = onWhichFloor;
             this.onWhichSubCorridor = onWhichSubCorridor;
@@ -43,11 +43,11 @@ public class SensorInputRequest {
         return movementStatus;
     }
 
-    public Floor getFloorNumber() {
+    public Integer getFloorNumber() {
         return onWhichFloor;
     }
 
-    public Corridor getCorridor() {
+    public Integer getCorridor() {
         return onWhichSubCorridor;
     }
 }

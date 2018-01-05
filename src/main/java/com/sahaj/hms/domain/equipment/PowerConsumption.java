@@ -26,4 +26,8 @@ public class PowerConsumption {
             return new PowerConsumption(this.unitValue,this.systemOfMeasurement);
         }
     }
+
+    Integer getUnitValue() {
+        return unitValue;
+    }
 }

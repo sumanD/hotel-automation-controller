@@ -7,7 +7,9 @@ import com.sahaj.hms.domain.enums.MovementStatus;
 import com.sahaj.hms.domain.sr.HotelInitializationRequest;
 import com.sahaj.hms.domain.sr.SensorInputRequest;
 import com.sahaj.hms.service.HotelService;
+import com.sahaj.hms.service.operation.interfaces.HotelOperation;
 import com.sahaj.hms.util.PowerConsumptionCalculator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,11 +22,14 @@ public class HotelServiceImpl implements HotelService {
     private Hotel hotel;
     private Integer maxAllowedPowerConsumptionLimit;
 
+    @Autowired
+    private HotelOperation hotelOperation;
+
     @Override
     public Boolean initializeHotel(HotelInitializationRequest hotelInitializationRequest) {
         hotel = HotelFactory.construct(hotelInitializationRequest);
         maxAllowedPowerConsumptionLimit = PowerConsumptionCalculator.calculateMaxAllowedPowerLimit(hotelInitializationRequest);
-        hotel.printState();
+        hotelOperation.revealCurrentStatus(hotel);
         return true;
     }
 
@@ -36,7 +41,7 @@ public class HotelServiceImpl implements HotelService {
         Integer onWhichSubCorridor = sensorInputRequest.getCorridor();
 
         // Reset the Light of the Sub Corridor Depending on the Movement in Sub-Corridor
-        SubCorridor subCorridor = hotel.getSubCorridorById(onWhichFloor, onWhichSubCorridor);
+        SubCorridor subCorridor = hotelOperation.getSubCorridorById(hotel, onWhichFloor, onWhichSubCorridor);
         if (movementStatus == MovementStatus.MOVEMENT) {
             subCorridor.getLight().switchOn();
         } else if (movementStatus == MovementStatus.NO_MOVEMENT) {
@@ -44,11 +49,11 @@ public class HotelServiceImpl implements HotelService {
         }
 
         // Switch Off Other Floor's Equipments
-        hotel.saveEnergy(onWhichFloor, onWhichSubCorridor);
+        hotelOperation.saveEnergy(hotel);
 
         // Displays the current Equipment Status
-        hotel.printState();
+        hotelOperation.revealCurrentStatus(hotel);
 
-        return null;
+        return true;
     }
 }

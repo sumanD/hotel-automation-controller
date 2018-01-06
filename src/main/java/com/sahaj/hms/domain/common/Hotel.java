@@ -17,23 +17,4 @@ public class Hotel {
     public Floors getFloors() {
         return floors;
     }
-
-    /**
-     * Prints equipment Status of a Hotel
-     */
-    public void printState() {
-        floors.printState();
-    }
-
-    public Floor getFloorById(Integer floorId) {
-        return floors.getFloorById(floorId);
-    }
-
-    public SubCorridor getSubCorridorById(Integer floorId, Integer subCorridorId) {
-        return floors.getSubCorridorById(floorId, subCorridorId);
-    }
-
-    public void saveEnergy(Integer floorId, Integer subCorridorId) {
-        floors.saveEnergy(floorId, subCorridorId);
-    }
 }

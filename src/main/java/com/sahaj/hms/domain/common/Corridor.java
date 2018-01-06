@@ -14,16 +14,4 @@ public class Corridor {
     public Integer getCorridorId() {
         return corridorId;
     }
-
-    public void setCorridorId(Integer corridorId) {
-        this.corridorId = corridorId;
-    }
-
-    public CorridorType getCorridorType() {
-        return corridorType;
-    }
-
-    public void setCorridorType(CorridorType corridorType) {
-        this.corridorType = corridorType;
-    }
 }

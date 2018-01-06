@@ -16,6 +16,8 @@ public class FloorOperationImpl implements FloorOperation {
     /**
      * This method saves energy by switching Off the Equipments ({@link Light} & {@link AirConditioner})
      * if required depending on the energy rule
+     *
+     * @param floor
      */
     @Override
     public void saveEnergy(final Floor floor) {
@@ -56,20 +58,43 @@ public class FloorOperationImpl implements FloorOperation {
     }
 
     /**
+     * Total Power consumption at a particular moment
+     *
+     * @param floor
+     * @return
+     */
+    private Integer getRealTimeTotalPowerConsumption(Floor floor) {
+        List<MainCorridor> mainCorridors = floor.getMainCorridors();
+
+        Integer totalFloorPowerConsumption = 0;
+
+        for (MainCorridor mainCorridor : mainCorridors) {
+            totalFloorPowerConsumption += mainCorridor.getTotalPowerConsumption();
+        }
+
+        List<SubCorridor> subCorridors = floor.getSubCorridors();
+        for (SubCorridor subCorridor : subCorridors) {
+            totalFloorPowerConsumption += subCorridor.getCurrentTotalPowerConsumption();
+        }
+
+        return totalFloorPowerConsumption;
+    }
+
+    /**
      * Keep on switching off ACs of Sub-Corridor until the Floor Energy Consumption limit is
      * not satisfied
      *
      * @param floor
      */
     private void keepTogglingAcsUntilEnergyRuleViolates(final Floor floor) {
-        int currentPowerConsumptionPerFloor = floor.getRealTimeTotalPowerConsumption().intValue();
+        int currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
         int maxPowerConsumptionLimit = floor.getMaxAllowedPowerConsumptionLimitPerFloor();
 
         if (currentPowerConsumptionPerFloor > maxPowerConsumptionLimit) {
             List<SubCorridor> subCorridorList = floor.getSubCorridors();
             for (SubCorridor subCorridor : subCorridorList) {
                 subCorridor.getAirConditioner().switchOff();
-                currentPowerConsumptionPerFloor = floor.getRealTimeTotalPowerConsumption().intValue();
+                currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
 
                 if (currentPowerConsumptionPerFloor <= maxPowerConsumptionLimit) {
                     break;
@@ -79,7 +104,7 @@ public class FloorOperationImpl implements FloorOperation {
             List<SubCorridor> subCorridorList = floor.getSubCorridors();
             for (SubCorridor subCorridor : subCorridorList) {
                 subCorridor.getAirConditioner().switchOn();
-                currentPowerConsumptionPerFloor = floor.getRealTimeTotalPowerConsumption().intValue();
+                currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
 
                 if (currentPowerConsumptionPerFloor == maxPowerConsumptionLimit) {
                     break;

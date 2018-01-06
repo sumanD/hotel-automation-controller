@@ -46,24 +46,6 @@ public class Floor {
         return maxAllowedPowerConsumptionLimitPerFloor;
     }
 
-    /**
-     * Total Power consumption at a particular moment
-     * @return
-     */
-    public Integer getRealTimeTotalPowerConsumption() {
-        Integer totalFloorPowerConsumption = 0;
-
-        for (MainCorridor mainCorridor : mainCorridors) {
-            totalFloorPowerConsumption += mainCorridor.getTotalPowerConsumption();
-        }
-
-        for (SubCorridor subCorridor : subCorridors) {
-            totalFloorPowerConsumption += subCorridor.getCurrentTotalPowerConsumption();
-        }
-
-        return totalFloorPowerConsumption;
-    }
-
     public static class FloorBuilder implements Builder<Floor> {
         private Integer floorId;
         private List<MainCorridor> mainCorridors;

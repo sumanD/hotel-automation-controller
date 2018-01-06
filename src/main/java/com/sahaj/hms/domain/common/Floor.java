@@ -18,16 +18,16 @@ public class Floor {
     private Integer floorId;
     private List<MainCorridor> mainCorridors;
     private List<SubCorridor> subCorridors;
-    private Integer totalConsumedPowerPerFloor;
+    private Integer maxAllowedPowerConsumptionLimitPerFloor;
 
     private Floor(Integer floorId,
                   List<MainCorridor> mainCorridors,
                   List<SubCorridor> subCorridors,
-                  Integer totalConsumedPowerPerFloor) {
+                  Integer maxAllowedPowerConsumptionLimitPerFloor) {
         this.floorId = floorId;
         this.mainCorridors = mainCorridors;
         this.subCorridors = subCorridors;
-        this.totalConsumedPowerPerFloor = totalConsumedPowerPerFloor;
+        this.maxAllowedPowerConsumptionLimitPerFloor = maxAllowedPowerConsumptionLimitPerFloor;
     }
 
     public List<MainCorridor> getMainCorridors() {
@@ -42,8 +42,8 @@ public class Floor {
         return this.floorId;
     }
 
-    public Integer getTotalConsumedPowerPerFloor() {
-        return totalConsumedPowerPerFloor;
+    public Integer getMaxAllowedPowerConsumptionLimitPerFloor() {
+        return maxAllowedPowerConsumptionLimitPerFloor;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Floor {
         }
 
         for (SubCorridor subCorridor : subCorridors) {
-            totalFloorPowerConsumption += subCorridor.getTotalPowerConsumption();
+            totalFloorPowerConsumption += subCorridor.getCurrentTotalPowerConsumption();
         }
 
         return totalFloorPowerConsumption;
@@ -83,7 +83,7 @@ public class Floor {
             subCorridors = new ArrayList<>(numberOfSubCorridors);
             for (Integer i = 1; i <= numberOfSubCorridors; i++) {
                 SubCorridor subCorridor = new SubCorridor.SubCorridorBuilder(i).construct();
-                maxPowerNeeded += subCorridor.getTotalPowerConsumption();
+                maxPowerNeeded += subCorridor.getCurrentTotalPowerConsumption();
                 subCorridors.add(subCorridor);
             }
 

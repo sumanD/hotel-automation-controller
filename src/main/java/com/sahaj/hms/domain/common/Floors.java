@@ -41,11 +41,6 @@ public class Floors {
         return floorToBeSearched;
     }
 
-    public Integer getFloorPowerConsumption(Integer floorId) {
-        Floor floor = getFloorById(floorId);
-        return floor.getRealTimeTotalPowerConsumption();
-    }
-
     public SubCorridor getSubCorridorById(Integer floorId, Integer subCorridorId) {
         Floor floor = getFloorById(floorId);
         List<SubCorridor> subCorridorList = floor.getSubCorridors();
@@ -64,35 +59,46 @@ public class Floors {
      * if required depending on the energy rule
      *
      * @param floorId
-     *
      */
     public void saveEnergy(Integer floorId, Integer subCorridorId) {
         for (Floor floor : floors) {
-            Integer powerConsumptionPerFloor = floor.getRealTimeTotalPowerConsumption();
-            System.out.println("Current_Power_Consumption[1] = "+ powerConsumptionPerFloor);
-            System.out.println("MAX_ALLOWED [1] = " + floor.getTotalConsumedPowerPerFloor());
+            keepTogglingAcsUntilEnergyRuleViolates(floor);
+        }
+    }
 
-            if(powerConsumptionPerFloor > floor.getTotalConsumedPowerPerFloor()){
+    /**
+     * Keep on switching off ACs of Sub-Corridor until the Floor Energy Consumption limit is
+     * not satisfied
+     *
+     * @param floor
+     */
+    private void keepTogglingAcsUntilEnergyRuleViolates(Floor floor) {
+        int currentPowerConsumptionPerFloor = floor.getRealTimeTotalPowerConsumption().intValue();
+        int maxPowerConsumptionLimit = floor.getMaxAllowedPowerConsumptionLimitPerFloor();
 
-                List<SubCorridor> subCorridorList = floor.getSubCorridors();
-                for (SubCorridor subCorridor : subCorridorList) {
+        if (currentPowerConsumptionPerFloor > maxPowerConsumptionLimit) {
+            List<SubCorridor> subCorridorList = floor.getSubCorridors();
+            for (SubCorridor subCorridor : subCorridorList) {
+                subCorridor.getAirConditioner().switchOff();
+                currentPowerConsumptionPerFloor = floor.getRealTimeTotalPowerConsumption().intValue();
 
-                    System.out.println("Current_Power_Consumption [2] = "+ powerConsumptionPerFloor);
-                    System.out.println("MAX_ALLOWED [2] = " + floor.getTotalConsumedPowerPerFloor());
+                if (currentPowerConsumptionPerFloor <= maxPowerConsumptionLimit) {
+                    break;
+                }
+            }
+        } else {
+            List<SubCorridor> subCorridorList = floor.getSubCorridors();
+            for (SubCorridor subCorridor : subCorridorList) {
+                subCorridor.getAirConditioner().switchOn();
+                currentPowerConsumptionPerFloor = floor.getRealTimeTotalPowerConsumption().intValue();
 
-                    if(powerConsumptionPerFloor > floor.getTotalConsumedPowerPerFloor()) {
-                        System.out.println("SUB_CORRIDOR_POWER [3]= " + subCorridor.getAirConditioner().getConsumedPower());
-                        powerConsumptionPerFloor -= subCorridor.getAirConditioner().getConsumedPower();
-                        System.out.println("AFTER CHANGE = " + powerConsumptionPerFloor);
-                        switchOffSubCorridorsAcs(floor);
-                    }
-                    else {
-                        break;
-                    }
+                if (currentPowerConsumptionPerFloor == maxPowerConsumptionLimit) {
+                    break;
                 }
             }
         }
     }
+
 
     /**
      * Switch Off Sub Corridor's AC

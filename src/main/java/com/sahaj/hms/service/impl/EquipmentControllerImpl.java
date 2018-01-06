@@ -70,9 +70,9 @@ public class EquipmentControllerImpl implements EquipmentController {
         Integer floorNumber = 0;
         Integer subCorridorNo = 0;
 
-        if (commands[0].toLowerCase().contains("No Movement in Floor".toLowerCase())) {
+        if (commands[0].toLowerCase().contains("No movement in Floor".toLowerCase())) {
             movementStatus = MovementStatus.NO_MOVEMENT;
-            floorNumber = new Integer(commands[0].replaceAll("Movement in Floor", "").trim());
+            floorNumber = new Integer(commands[0].replaceAll("No movement in Floor", "").trim());
         } else if (commands[0].toLowerCase().contains("Movement in Floor".toLowerCase())) {
             movementStatus = MovementStatus.MOVEMENT;
             floorNumber = new Integer(commands[0].replaceAll("Movement in Floor", "").trim());

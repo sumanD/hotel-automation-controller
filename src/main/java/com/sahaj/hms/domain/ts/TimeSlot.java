@@ -8,7 +8,7 @@ import java.time.LocalTime;
  * Represents a Time Slot, e.g., Day time slot , Night Time Slot etc
  */
 public abstract class TimeSlot {
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private TimeSlotType timeSlotType;
+    protected LocalTime startTime;
+    protected LocalTime endTime;
+    protected TimeSlotType timeSlotType;
 }

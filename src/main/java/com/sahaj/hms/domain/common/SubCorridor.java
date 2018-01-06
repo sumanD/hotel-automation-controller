@@ -60,7 +60,7 @@ public class SubCorridor extends Corridor {
         return airConditioner;
     }
 
-    public Integer getTotalPowerConsumption() {
+    public Integer getCurrentTotalPowerConsumption() {
         return light.getConsumedPower() + airConditioner.getConsumedPower();
     }
 }

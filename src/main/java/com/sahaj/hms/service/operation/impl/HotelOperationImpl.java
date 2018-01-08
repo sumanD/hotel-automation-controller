@@ -28,7 +28,7 @@ public class HotelOperationImpl implements HotelOperation {
      */
     @Override
     public boolean saveEnergy(final Hotel hotel) throws ValidationException {
-        if(hotel == null) {
+        if (hotel == null) {
             final String errorMessage = "SaveEnergy() Operation has failed on Hotel Object. " +
                     "Reason - Hotel object provided is null";
             throw new ValidationException(errorMessage);
@@ -47,10 +47,10 @@ public class HotelOperationImpl implements HotelOperation {
      */
     @Override
     public void revealCurrentStatus(final Hotel hotel) throws ValidationException {
-        if(hotel == null) {
+        if (hotel == null) {
             final String errorMessage = "RevealCurrentStatus() Operation has failed on Hotel Object. " +
                     "Reason - Hotel object provided is null";
-          throw new ValidationException(errorMessage);
+            throw new ValidationException(errorMessage);
         }
         floorsOperation.revealCurrentStatus(hotel.getFloors());
     }
@@ -64,12 +64,20 @@ public class HotelOperationImpl implements HotelOperation {
      * @return Matched {@link SubCorridor}
      */
     @Override
-    public SubCorridor getSubCorridorById(Hotel hotel, Integer floorId, Integer subCorridorId) throws ValidationException {
-        if(hotel == null) {
+    public SubCorridor getSubCorridorById(final Hotel hotel, final Integer floorId, final Integer subCorridorId)
+            throws ValidationException {
+        if (hotel == null) {
             final String errorMessage = "getSubCorridorById() Operation has failed on Hotel Object. " +
                     "Reason - Hotel object provided is null";
             throw new ValidationException(errorMessage);
         }
+
+        if (floorId == null || floorId.intValue() == 0 || subCorridorId == null || subCorridorId.intValue() == 0) {
+            final String errorMessage = "getSubCorridorById() Operation has failed on floorId/SubCorridorId Objects. " +
+                    "Reason - floorId/SubCorridorId Objects provided are null/0.";
+            throw new ValidationException(errorMessage);
+        }
+
         return floorsOperation.getSubCorridorById(hotel.getFloors(), floorId, subCorridorId);
     }
 }

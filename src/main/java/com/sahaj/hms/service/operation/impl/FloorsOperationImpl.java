@@ -62,10 +62,17 @@ public class FloorsOperationImpl implements FloorsOperation {
 
 
     @Override
-    public SubCorridor getSubCorridorById(Floors floors, Integer floorId, Integer subCorridorId) throws ValidationException {
+    public SubCorridor getSubCorridorById(final Floors floors, final Integer floorId, final Integer subCorridorId)
+            throws ValidationException {
         if (floors == null) {
             final String errorMessage = "getSubCorridorById() Operation has failed on Floors Object. " +
                     "Reason - Floors object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
+        if (floorId == null || floorId.intValue() == 0 || subCorridorId == null || subCorridorId.intValue() == 0) {
+            final String errorMessage = "getSubCorridorById() Operation has failed on floorId/SubCorridorId Objects. " +
+                    "Reason - floorId/SubCorridorId Objects provided are null/0.";
             throw new ValidationException(errorMessage);
         }
 
@@ -84,10 +91,16 @@ public class FloorsOperationImpl implements FloorsOperation {
     }
 
     @Override
-    public Floor getFloorById(Floors floors, Integer floorId) throws ValidationException {
+    public Floor getFloorById(final Floors floors, final Integer floorId) throws ValidationException {
         if (floors == null) {
             final String errorMessage = "getFloorById() Operation has failed on Floors Object. " +
                     "Reason - Floors object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
+        if (floorId == null || floorId.intValue() == 0) {
+            final String errorMessage = "getFloorById() Operation has failed on floorId Object. " +
+                    "Reason - floorId Object provided are null/0.";
             throw new ValidationException(errorMessage);
         }
 

@@ -2,7 +2,6 @@ package com.sahaj.hms.service.operation.impl;
 
 import com.sahaj.hms.domain.common.Floor;
 import com.sahaj.hms.domain.common.Floors;
-import com.sahaj.hms.domain.common.Hotel;
 import com.sahaj.hms.domain.common.SubCorridor;
 import com.sahaj.hms.service.operation.interfaces.FloorOperation;
 import com.sahaj.hms.service.operation.interfaces.FloorsOperation;
@@ -18,11 +17,13 @@ public class FloorsOperationImpl implements FloorsOperation {
     private FloorOperation floorOperation;
 
     @Override
-    public void saveEnergy(final Floors floors) {
+    public boolean saveEnergy(final Floors floors) {
+        boolean hasEnergySaved = false;
         List<Floor> floorList = floors.getFloors();
         for (Floor floor : floorList) {
-            floorOperation.saveEnergy(floor);
+            hasEnergySaved = floorOperation.saveEnergy(floor);
         }
+        return hasEnergySaved;
     }
 
     /**

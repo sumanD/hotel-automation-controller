@@ -20,8 +20,8 @@ public class FloorOperationImpl implements FloorOperation {
      * @param floor
      */
     @Override
-    public void saveEnergy(final Floor floor) {
-        keepTogglingAcsUntilEnergyRuleViolates(floor);
+    public boolean saveEnergy(final Floor floor) {
+        return keepTogglingAcsUntilEnergyRuleViolates(floor);
     }
 
     /**
@@ -86,7 +86,8 @@ public class FloorOperationImpl implements FloorOperation {
      *
      * @param floor
      */
-    private void keepTogglingAcsUntilEnergyRuleViolates(final Floor floor) {
+    private boolean keepTogglingAcsUntilEnergyRuleViolates(final Floor floor) {
+        boolean hasSavedEnergy = false;
         int currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
         int maxPowerConsumptionLimit = floor.getMaxAllowedPowerConsumptionLimitPerFloor();
 
@@ -97,6 +98,7 @@ public class FloorOperationImpl implements FloorOperation {
                 currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
 
                 if (currentPowerConsumptionPerFloor <= maxPowerConsumptionLimit) {
+                    hasSavedEnergy = true;
                     break;
                 }
             }
@@ -107,9 +109,11 @@ public class FloorOperationImpl implements FloorOperation {
                 currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
 
                 if (currentPowerConsumptionPerFloor == maxPowerConsumptionLimit) {
+                    hasSavedEnergy = true;
                     break;
                 }
             }
         }
+        return hasSavedEnergy;
     }
 }

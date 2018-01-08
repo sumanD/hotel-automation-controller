@@ -2,7 +2,7 @@ package com.sahaj.hms.util;
 
 import com.sahaj.hms.domain.sr.HotelInitializationRequest;
 import com.sahaj.hms.exception.InvalidHotelInitRequestException;
-import com.sahaj.hms.service.AppConfig;
+import com.sahaj.hms.service.config.AppConfig;
 import com.sahaj.hms.util.validator.HotelInitializationRequestValidator;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -37,7 +37,7 @@ public class PowerConsumptionCalculatorTest {
     }
 
     /**
-     * Test the Happy Path Flow and calculates the Maximum Power Consumption Limit Per Floor
+     * Tests the Happy Path Flow and calculates the Maximum Power Consumption Limit Per Floor
      */
     @Test
     public void testCalculateMaxAllowedPowerLimit() {

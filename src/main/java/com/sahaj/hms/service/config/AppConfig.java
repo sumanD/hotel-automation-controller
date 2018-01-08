@@ -1,4 +1,4 @@
-package com.sahaj.hms.service;
+package com.sahaj.hms.service.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

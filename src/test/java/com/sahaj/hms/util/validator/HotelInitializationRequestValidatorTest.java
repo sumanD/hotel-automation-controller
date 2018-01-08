@@ -1,13 +1,12 @@
-package com.sahaj.hms.domain.sr;
+package com.sahaj.hms.util.validator;
 
-import com.sahaj.hms.util.validator.HotelInitializationRequestValidator;
+import com.sahaj.hms.domain.sr.HotelInitializationRequest;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-public class HotelInitializationRequestTest {
-
+public class HotelInitializationRequestValidatorTest {
     private HotelInitializationRequestValidator hotelInitializationRequestValidator;
 
     @Before

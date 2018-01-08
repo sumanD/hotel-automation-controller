@@ -91,6 +91,7 @@ public class FloorOperationImpl implements FloorOperation {
         int currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
         int maxPowerConsumptionLimit = floor.getMaxAllowedPowerConsumptionLimitPerFloor();
 
+        // If Current Power Usage is more than the allowed maximum usage limit
         if (currentPowerConsumptionPerFloor > maxPowerConsumptionLimit) {
             List<SubCorridor> subCorridorList = floor.getSubCorridors();
             for (SubCorridor subCorridor : subCorridorList) {
@@ -102,7 +103,8 @@ public class FloorOperationImpl implements FloorOperation {
                     break;
                 }
             }
-        } else {
+            // If Current Power Usage is Less than the allowed Maximum Usage Limit
+        } else if(currentPowerConsumptionPerFloor < maxPowerConsumptionLimit){
             List<SubCorridor> subCorridorList = floor.getSubCorridors();
             for (SubCorridor subCorridor : subCorridorList) {
                 subCorridor.getAirConditioner().switchOn();

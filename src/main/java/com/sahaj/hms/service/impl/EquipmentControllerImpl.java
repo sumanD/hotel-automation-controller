@@ -59,12 +59,12 @@ public class EquipmentControllerImpl implements EquipmentController {
     }
 
     private SensorInputRequest getLatestEquipmentStatus(final Scanner in) throws IncorrectSensorInputException {
+        System.out.println("Subsequent Inputs from Sensors : ");
         String sensorInput = in.nextLine();
         if (StringUtils.isEmpty(sensorInput)) {
             return null;
         }
 
-        System.out.println("Subsequent Inputs from Sensors : ");
         String[] commands = sensorInput.split(",");
         MovementStatus movementStatus = MovementStatus.DEFAULT;
         Integer floorNumber = 0;

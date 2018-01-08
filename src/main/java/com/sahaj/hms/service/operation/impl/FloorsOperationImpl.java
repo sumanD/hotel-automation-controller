@@ -16,6 +16,13 @@ public class FloorsOperationImpl implements FloorsOperation {
     @Autowired
     private FloorOperation floorOperation;
 
+    /**
+     * This operation do the needful to control the excessive electricity usage by the
+     * Hotel's Electrical equipments ({@link com.sahaj.hms.domain.equipment.Light}
+     * and {@link com.sahaj.hms.domain.equipment.AirConditioner})
+     *
+     * @param floors A Floors Object whose equipments electricity usage needs to be controlled
+     */
     @Override
     public boolean saveEnergy(final Floors floors) {
         boolean hasEnergySaved = false;

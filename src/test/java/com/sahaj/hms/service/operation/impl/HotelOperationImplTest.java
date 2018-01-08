@@ -25,7 +25,6 @@ public class HotelOperationImplTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
     public void testSaveEnergyWhenFloorsOperationReturnsTrue() {
         Mockito.when(floorsOperation.saveEnergy(Matchers.any(Floors.class))).thenReturn(true);

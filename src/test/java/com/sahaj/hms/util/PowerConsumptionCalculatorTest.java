@@ -11,7 +11,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -33,6 +36,9 @@ public class PowerConsumptionCalculatorTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test the Happy Path Flow and calculates the Maximum Power Consumption Limit Per Floor
+     */
     @Test
     public void testCalculateMaxAllowedPowerLimit() {
         Integer numberOfFloors = 1;
@@ -54,6 +60,36 @@ public class PowerConsumptionCalculatorTest {
         Assert.assertEquals(totalPowerConsumption.intValue(), 25);
     }
 
+    /**
+     * Test the Happy Path Flow and calculates the Maximum Power Consumption Limit Per Floor with more number of
+     * Main Corridor and Sub Corridor
+     */
+    @Test
+    public void testCalculateMaxAllowedPowerLimitWithHigherFloorNumbers() {
+        Integer numberOfFloors = 1;
+        Integer numberOfMainCorridorsPerFloor = 10;
+        Integer numberOfSubCorridorsPerFloor = 10;
+
+        HotelInitializationRequest hotelInitializationRequest
+                = new HotelInitializationRequest(numberOfFloors, numberOfMainCorridorsPerFloor, numberOfSubCorridorsPerFloor);
+
+        Mockito.when(validator.isValid(hotelInitializationRequest)).thenReturn(true);
+
+        Integer totalPowerConsumption = null;
+        try {
+            totalPowerConsumption = calculator.calculateMaxAllowedPowerLimit(hotelInitializationRequest);
+        } catch (InvalidHotelInitRequestException e) {
+            e.printStackTrace();
+            Assert.assertFalse(true);
+        }
+        Assert.assertEquals(totalPowerConsumption.intValue(), 250);
+    }
+
+    /**
+     * Test for InvalidHotelInitRequestException Exception
+     *
+     * @throws InvalidHotelInitRequestException
+     */
     @Test
     public void testCalculateMaxAllowedPowerLimitWithNegativeValues() throws InvalidHotelInitRequestException {
 

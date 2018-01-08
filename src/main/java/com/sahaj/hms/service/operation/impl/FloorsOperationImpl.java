@@ -78,13 +78,14 @@ public class FloorsOperationImpl implements FloorsOperation {
 
         Floor floor = getFloorById(floors, floorId);
 
-        List<SubCorridor> subCorridorList = floor.getSubCorridors();
         SubCorridor subCorridor = null;
-
-        for (SubCorridor sc : subCorridorList) {
-            if (sc.getCorridorId().equals(subCorridorId)) {
-                subCorridor = sc;
-                break;
+        if (floor != null) {
+            List<SubCorridor> subCorridorList = floor.getSubCorridors();
+            for (SubCorridor sc : subCorridorList) {
+                if (sc.getCorridorId().equals(subCorridorId)) {
+                    subCorridor = sc;
+                    break;
+                }
             }
         }
         return subCorridor;
@@ -104,13 +105,12 @@ public class FloorsOperationImpl implements FloorsOperation {
             throw new ValidationException(errorMessage);
         }
 
-        Floor floorToBeSearched = null;
         List<Floor> floorList = floors.getFloors();
         for (Floor floor : floorList) {
-            if (floor.getFloorId().equals(floorId)) {
-                floorToBeSearched = floor;
+            if (floor.getFloorId().intValue() == floorId.intValue()) {
+                return floor;
             }
         }
-        return floorToBeSearched;
+        return null;
     }
 }

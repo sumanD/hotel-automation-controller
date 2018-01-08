@@ -63,7 +63,7 @@ public class FloorOperationImpl implements FloorOperation {
      * @param floor
      * @return
      */
-    private Integer getRealTimeTotalPowerConsumption(Floor floor) {
+    private Integer getRealTimeTotalPowerConsumption(final Floor floor) {
         List<MainCorridor> mainCorridors = floor.getMainCorridors();
 
         Integer totalFloorPowerConsumption = 0;

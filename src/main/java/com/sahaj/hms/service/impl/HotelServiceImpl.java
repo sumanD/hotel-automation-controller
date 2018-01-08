@@ -6,6 +6,7 @@ import com.sahaj.hms.domain.common.SubCorridor;
 import com.sahaj.hms.domain.enums.MovementStatus;
 import com.sahaj.hms.domain.sr.HotelInitializationRequest;
 import com.sahaj.hms.domain.sr.SensorInputRequest;
+import com.sahaj.hms.exception.InvalidHotelInitRequestException;
 import com.sahaj.hms.service.HotelService;
 import com.sahaj.hms.service.operation.interfaces.HotelOperation;
 import com.sahaj.hms.util.PowerConsumptionCalculator;
@@ -24,13 +25,20 @@ public class HotelServiceImpl implements HotelService {
 
     @Autowired
     private HotelOperation hotelOperation;
+    @Autowired
+    private PowerConsumptionCalculator powerConsumptionCalculator;
 
     @Override
     public Boolean initializeHotel(HotelInitializationRequest hotelInitializationRequest) {
-        hotel = HotelFactory.construct(hotelInitializationRequest);
-        maxAllowedPowerConsumptionLimit = PowerConsumptionCalculator.calculateMaxAllowedPowerLimit(hotelInitializationRequest);
-        hotelOperation.revealCurrentStatus(hotel);
-        return true;
+        try {
+            hotel = HotelFactory.construct(hotelInitializationRequest);
+            maxAllowedPowerConsumptionLimit = powerConsumptionCalculator.calculateMaxAllowedPowerLimit(hotelInitializationRequest);
+            hotelOperation.revealCurrentStatus(hotel);
+            return true;
+        } catch (InvalidHotelInitRequestException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

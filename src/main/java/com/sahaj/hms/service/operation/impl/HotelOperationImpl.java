@@ -29,7 +29,7 @@ public class HotelOperationImpl implements HotelOperation {
     @Override
     public boolean saveEnergy(final Hotel hotel) throws ValidationException {
         if (hotel == null) {
-            final String errorMessage = "SaveEnergy() Operation has failed on Hotel Object. " +
+            final String errorMessage = "saveEnergy() Operation has failed on Hotel Object. " +
                     "Reason - Hotel object provided is null";
             throw new ValidationException(errorMessage);
         }
@@ -39,7 +39,7 @@ public class HotelOperationImpl implements HotelOperation {
     }
 
     /**
-     * Print's the current electrical equipment status {@link com.sahaj.hms.domain.enums.EquipmentState} by
+     * Print the current electrical equipment status {@link com.sahaj.hms.domain.enums.EquipmentState} by
      * {@link com.sahaj.hms.domain.common.Floor}, {@link com.sahaj.hms.domain.common.MainCorridor} and
      * {@link SubCorridor}
      *
@@ -48,7 +48,7 @@ public class HotelOperationImpl implements HotelOperation {
     @Override
     public void revealCurrentStatus(final Hotel hotel) throws ValidationException {
         if (hotel == null) {
-            final String errorMessage = "RevealCurrentStatus() Operation has failed on Hotel Object. " +
+            final String errorMessage = "revealCurrentStatus() Operation has failed on Hotel Object. " +
                     "Reason - Hotel object provided is null";
             throw new ValidationException(errorMessage);
         }

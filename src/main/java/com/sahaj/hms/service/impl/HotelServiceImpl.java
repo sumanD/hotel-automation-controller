@@ -6,7 +6,9 @@ import com.sahaj.hms.domain.common.SubCorridor;
 import com.sahaj.hms.domain.enums.MovementStatus;
 import com.sahaj.hms.domain.sr.HotelInitializationRequest;
 import com.sahaj.hms.domain.sr.SensorInputRequest;
+import com.sahaj.hms.exception.HmsBaseException;
 import com.sahaj.hms.exception.InvalidHotelInitRequestException;
+import com.sahaj.hms.exception.ValidationException;
 import com.sahaj.hms.service.HotelService;
 import com.sahaj.hms.service.operation.interfaces.HotelOperation;
 import com.sahaj.hms.util.PowerConsumptionCalculator;
@@ -38,29 +40,36 @@ public class HotelServiceImpl implements HotelService {
         } catch (InvalidHotelInitRequestException e) {
             e.printStackTrace();
             return false;
+        } catch (ValidationException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
     @Override
     public Boolean updateHotelEquipmentState(SensorInputRequest sensorInputRequest) {
+        try {
+            MovementStatus movementStatus = sensorInputRequest.getMovementStatus();
+            Integer onWhichFloor = sensorInputRequest.getFloorNumber();
+            Integer onWhichSubCorridor = sensorInputRequest.getCorridor();
 
-        MovementStatus movementStatus = sensorInputRequest.getMovementStatus();
-        Integer onWhichFloor = sensorInputRequest.getFloorNumber();
-        Integer onWhichSubCorridor = sensorInputRequest.getCorridor();
+            // Reset the Light of the Sub Corridor Depending on the Movement in Sub-Corridor
+            SubCorridor subCorridor = hotelOperation.getSubCorridorById(hotel, onWhichFloor, onWhichSubCorridor);
+            if (movementStatus == MovementStatus.MOVEMENT) {
+                subCorridor.getLight().switchOn();
+            } else if (movementStatus == MovementStatus.NO_MOVEMENT) {
+                subCorridor.getLight().switchOff();
+            }
 
-        // Reset the Light of the Sub Corridor Depending on the Movement in Sub-Corridor
-        SubCorridor subCorridor = hotelOperation.getSubCorridorById(hotel, onWhichFloor, onWhichSubCorridor);
-        if (movementStatus == MovementStatus.MOVEMENT) {
-            subCorridor.getLight().switchOn();
-        } else if (movementStatus == MovementStatus.NO_MOVEMENT) {
-            subCorridor.getLight().switchOff();
+            // Switch Off Other Floor's Equipments
+            hotelOperation.saveEnergy(hotel);
+
+            // Displays the current Equipment Status
+            hotelOperation.revealCurrentStatus(hotel);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+            return false;
         }
-
-        // Switch Off Other Floor's Equipments
-        hotelOperation.saveEnergy(hotel);
-
-        // Displays the current Equipment Status
-        hotelOperation.revealCurrentStatus(hotel);
 
         return true;
     }

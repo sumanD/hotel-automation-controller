@@ -5,6 +5,7 @@ import com.sahaj.hms.domain.common.MainCorridor;
 import com.sahaj.hms.domain.common.SubCorridor;
 import com.sahaj.hms.domain.equipment.AirConditioner;
 import com.sahaj.hms.domain.equipment.Light;
+import com.sahaj.hms.exception.ValidationException;
 import com.sahaj.hms.service.operation.interfaces.FloorOperation;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,13 @@ public class FloorOperationImpl implements FloorOperation {
      * @param floor
      */
     @Override
-    public boolean saveEnergy(final Floor floor) {
+    public boolean saveEnergy(final Floor floor) throws ValidationException {
+        if (floor == null) {
+            final String errorMessage = "saveEnergy() Operation has failed on Floor Object. " +
+                    "Reason - Floor object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         return keepTogglingAcsUntilEnergyRuleViolates(floor);
     }
 
@@ -28,7 +35,13 @@ public class FloorOperationImpl implements FloorOperation {
      * @param floor Floor Object whose Equipment state needs to be revealed
      */
     @Override
-    public void revealCurrentStatus(final Floor floor) {
+    public void revealCurrentStatus(final Floor floor) throws ValidationException {
+        if (floor == null) {
+            final String errorMessage = "revealCurrentStatus() Operation has failed on Floor Object. " +
+                    "Reason - Floor object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         System.out.println("Floor " + floor.getFloorId());
 
         List<MainCorridor> mainCorridors = floor.getMainCorridors();
@@ -63,7 +76,13 @@ public class FloorOperationImpl implements FloorOperation {
      * @param floor
      * @return
      */
-    private Integer getRealTimeTotalPowerConsumption(final Floor floor) {
+    private Integer getRealTimeTotalPowerConsumption(final Floor floor) throws ValidationException {
+        if (floor == null) {
+            final String errorMessage = "getRealTimeTotalPowerConsumption() Operation has failed on Floor Object. " +
+                    "Reason - Floor object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         List<MainCorridor> mainCorridors = floor.getMainCorridors();
 
         Integer totalFloorPowerConsumption = 0;
@@ -86,7 +105,13 @@ public class FloorOperationImpl implements FloorOperation {
      *
      * @param floor
      */
-    private boolean keepTogglingAcsUntilEnergyRuleViolates(final Floor floor) {
+    private boolean keepTogglingAcsUntilEnergyRuleViolates(final Floor floor) throws ValidationException {
+        if (floor == null) {
+            final String errorMessage = "keepTogglingAcsUntilEnergyRuleViolates() Operation has failed on Floor Object. " +
+                    "Reason - Floor object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         boolean hasSavedEnergy = false;
         int currentPowerConsumptionPerFloor = getRealTimeTotalPowerConsumption(floor).intValue();
         int maxPowerConsumptionLimit = floor.getMaxAllowedPowerConsumptionLimitPerFloor();

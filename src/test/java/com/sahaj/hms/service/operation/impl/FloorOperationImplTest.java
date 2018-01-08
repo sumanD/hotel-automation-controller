@@ -6,6 +6,7 @@ import com.sahaj.hms.domain.common.Floors;
 import com.sahaj.hms.domain.common.Hotel;
 import com.sahaj.hms.domain.common.SubCorridor;
 import com.sahaj.hms.domain.sr.HotelInitializationRequest;
+import com.sahaj.hms.exception.ValidationException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class FloorOperationImplTest {
     }
 
     @Test
-    public void testSaveEnergyWhenFloorsEnergyUsageLimitIsEqualToTheAllowedLimit() {
+    public void testSaveEnergyWhenFloorsEnergyUsageLimitIsEqualToTheAllowedLimit() throws ValidationException {
         HotelInitializationRequest hotelInitializationRequest
                 = new HotelInitializationRequest(1, 1, 1);
         Hotel hotel = HotelFactory.construct(hotelInitializationRequest);
@@ -39,7 +40,7 @@ public class FloorOperationImplTest {
     }
 
     @Test
-    public void testSaveEnergyWhenFloorsEnergyUsageLimitIsLessThanTheAllowedLimit() {
+    public void testSaveEnergyWhenFloorsEnergyUsageLimitIsLessThanTheAllowedLimit() throws ValidationException {
         HotelInitializationRequest hotelInitializationRequest
                 = new HotelInitializationRequest(1, 1, 2);
         Hotel hotel = HotelFactory.construct(hotelInitializationRequest);
@@ -63,7 +64,7 @@ public class FloorOperationImplTest {
     }
 
     @Test
-    public void testSaveEnergyWhenFloorsEnergyUsageLimitIsMoreThanTheAllowedLimit() {
+    public void testSaveEnergyWhenFloorsEnergyUsageLimitIsMoreThanTheAllowedLimit() throws ValidationException {
         HotelInitializationRequest hotelInitializationRequest
                 = new HotelInitializationRequest(1, 1, 2);
         Hotel hotel = HotelFactory.construct(hotelInitializationRequest);
@@ -82,7 +83,6 @@ public class FloorOperationImplTest {
 
             hasSavedEnergy = floorOperation.saveEnergy(floor);
             Assert.assertTrue(hasSavedEnergy);
-
         }
     }
 }

@@ -3,6 +3,8 @@ package com.sahaj.hms.service.operation.impl;
 import com.sahaj.hms.domain.common.Floors;
 import com.sahaj.hms.domain.common.Hotel;
 import com.sahaj.hms.domain.common.SubCorridor;
+import com.sahaj.hms.exception.HmsBaseException;
+import com.sahaj.hms.exception.ValidationException;
 import com.sahaj.hms.service.operation.interfaces.FloorsOperation;
 import com.sahaj.hms.service.operation.interfaces.HotelOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,13 @@ public class HotelOperationImpl implements HotelOperation {
      * @param hotel A Hotel Object whose equipments electricity usage needs to be controlled
      */
     @Override
-    public boolean saveEnergy(final Hotel hotel) {
+    public boolean saveEnergy(final Hotel hotel) throws ValidationException {
+        if(hotel == null) {
+            final String errorMessage = "SaveEnergy() Operation has failed on Hotel Object. " +
+                    "Reason - Hotel object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         Floors floors = hotel.getFloors();
         return floorsOperation.saveEnergy(floors);
     }
@@ -38,7 +46,12 @@ public class HotelOperationImpl implements HotelOperation {
      * @param hotel A Hotel Object whose equipments status needs to be printed
      */
     @Override
-    public void revealCurrentStatus(final Hotel hotel) {
+    public void revealCurrentStatus(final Hotel hotel) throws ValidationException {
+        if(hotel == null) {
+            final String errorMessage = "RevealCurrentStatus() Operation has failed on Hotel Object. " +
+                    "Reason - Hotel object provided is null";
+          throw new ValidationException(errorMessage);
+        }
         floorsOperation.revealCurrentStatus(hotel.getFloors());
     }
 
@@ -51,7 +64,12 @@ public class HotelOperationImpl implements HotelOperation {
      * @return Matched {@link SubCorridor}
      */
     @Override
-    public SubCorridor getSubCorridorById(Hotel hotel, Integer floorId, Integer subCorridorId) {
+    public SubCorridor getSubCorridorById(Hotel hotel, Integer floorId, Integer subCorridorId) throws ValidationException {
+        if(hotel == null) {
+            final String errorMessage = "getSubCorridorById() Operation has failed on Hotel Object. " +
+                    "Reason - Hotel object provided is null";
+            throw new ValidationException(errorMessage);
+        }
         return floorsOperation.getSubCorridorById(hotel.getFloors(), floorId, subCorridorId);
     }
 }

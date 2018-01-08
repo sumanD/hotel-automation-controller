@@ -3,6 +3,8 @@ package com.sahaj.hms.service.operation.interfaces;
 import com.sahaj.hms.common.Operation;
 import com.sahaj.hms.domain.common.Hotel;
 import com.sahaj.hms.domain.common.SubCorridor;
+import com.sahaj.hms.exception.HmsBaseException;
+import com.sahaj.hms.exception.ValidationException;
 
 /**
  * Service to operate on Hotel Equipments
@@ -16,5 +18,5 @@ public interface HotelOperation extends Operation<Hotel> {
      * @param subCorridorId The Id of the {@link SubCorridor}
      * @return Matched {@link SubCorridor}
      */
-    SubCorridor getSubCorridorById(Hotel hotel, Integer floorId, Integer subCorridorId);
+    SubCorridor getSubCorridorById(Hotel hotel, Integer floorId, Integer subCorridorId) throws ValidationException;
 }

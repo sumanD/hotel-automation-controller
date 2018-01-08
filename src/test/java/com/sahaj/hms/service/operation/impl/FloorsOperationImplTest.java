@@ -5,6 +5,7 @@ import com.sahaj.hms.domain.common.Floor;
 import com.sahaj.hms.domain.common.Floors;
 import com.sahaj.hms.domain.common.Hotel;
 import com.sahaj.hms.domain.sr.HotelInitializationRequest;
+import com.sahaj.hms.exception.ValidationException;
 import com.sahaj.hms.service.operation.interfaces.FloorOperation;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
@@ -27,7 +28,7 @@ public class FloorsOperationImplTest {
     }
 
     @Test
-    public void testSaveEnergyWhenFloorOperationReturnsTrue() {
+    public void testSaveEnergyWhenFloorOperationReturnsTrue() throws ValidationException {
         Mockito.when(floorOperation.saveEnergy(Matchers.any(Floor.class))).thenReturn(true);
 
         HotelInitializationRequest hotelInitializationRequest
@@ -40,7 +41,7 @@ public class FloorsOperationImplTest {
     }
 
     @Test
-    public void testSaveEnergyWhenFloorOperationReturnsFalse() {
+    public void testSaveEnergyWhenFloorOperationReturnsFalse() throws ValidationException {
         Mockito.when(floorOperation.saveEnergy(Matchers.any(Floor.class))).thenReturn(false);
 
         HotelInitializationRequest hotelInitializationRequest

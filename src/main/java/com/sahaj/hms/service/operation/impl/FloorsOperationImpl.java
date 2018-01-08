@@ -3,6 +3,7 @@ package com.sahaj.hms.service.operation.impl;
 import com.sahaj.hms.domain.common.Floor;
 import com.sahaj.hms.domain.common.Floors;
 import com.sahaj.hms.domain.common.SubCorridor;
+import com.sahaj.hms.exception.ValidationException;
 import com.sahaj.hms.service.operation.interfaces.FloorOperation;
 import com.sahaj.hms.service.operation.interfaces.FloorsOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,13 @@ public class FloorsOperationImpl implements FloorsOperation {
      * @param floors A Floors Object whose equipments electricity usage needs to be controlled
      */
     @Override
-    public boolean saveEnergy(final Floors floors) {
+    public boolean saveEnergy(final Floors floors) throws ValidationException {
+        if (floors == null) {
+            final String errorMessage = "saveEnergy() Operation has failed on Floors Object. " +
+                    "Reason - Floors object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         boolean hasEnergySaved = false;
         List<Floor> floorList = floors.getFloors();
         for (Floor floor : floorList) {
@@ -39,7 +46,13 @@ public class FloorsOperationImpl implements FloorsOperation {
      * @param floors Floors Object where each floor's Equipment state needs to be revealed
      */
     @Override
-    public void revealCurrentStatus(final Floors floors) {
+    public void revealCurrentStatus(final Floors floors) throws ValidationException {
+        if (floors == null) {
+            final String errorMessage = "revealCurrentStatus() Operation has failed on Floors Object. " +
+                    "Reason - Floors object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         List<Floor> floorList = floors.getFloors();
         for (int i = 0; i < floorList.size(); i++) {
             Floor floor = floorList.get(i);
@@ -49,7 +62,13 @@ public class FloorsOperationImpl implements FloorsOperation {
 
 
     @Override
-    public SubCorridor getSubCorridorById(Floors floors, Integer floorId, Integer subCorridorId) {
+    public SubCorridor getSubCorridorById(Floors floors, Integer floorId, Integer subCorridorId) throws ValidationException {
+        if (floors == null) {
+            final String errorMessage = "getSubCorridorById() Operation has failed on Floors Object. " +
+                    "Reason - Floors object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         Floor floor = getFloorById(floors, floorId);
 
         List<SubCorridor> subCorridorList = floor.getSubCorridors();
@@ -65,7 +84,13 @@ public class FloorsOperationImpl implements FloorsOperation {
     }
 
     @Override
-    public Floor getFloorById(Floors floors, Integer floorId) {
+    public Floor getFloorById(Floors floors, Integer floorId) throws ValidationException {
+        if (floors == null) {
+            final String errorMessage = "getFloorById() Operation has failed on Floors Object. " +
+                    "Reason - Floors object provided is null";
+            throw new ValidationException(errorMessage);
+        }
+
         Floor floorToBeSearched = null;
         List<Floor> floorList = floors.getFloors();
         for (Floor floor : floorList) {
